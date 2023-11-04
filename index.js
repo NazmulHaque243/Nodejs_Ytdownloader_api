@@ -1,6 +1,6 @@
 
 // External modules
-var https = require("https");
+
 require('dotenv').config();
 const cp = require("child_process");
 const ffmpeg = require("ffmpeg-static");
@@ -9,6 +9,7 @@ const express = require("express");
 const ytdl = require("ytdl-core");
 var cors = require("cors");
 const bodyParser = require("body-parser");
+const got = require('got')
 
 // const route=express.Router();
 
@@ -82,7 +83,8 @@ app.get("/download", async (req, res) => {
     res.Header("Content-type", "application/octet-stream");
   }
 
-  request(url).pipe(res);
+  // request(url).pipe(res);
+  got.stream(url).pipe(res);
   // https.get(url, remote_response => remote_response.pipe(res));
 });
 
