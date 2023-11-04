@@ -79,11 +79,11 @@ app.get("/download", async (req, res) => {
     res.header("Content-Disposition", `attachment; filename="${title}.mp3"`);
     // res.header('Content-Type', 'audio/mp3');
     res.header("Content-Length", len);
-    res.setHeader("Content-type", "application/octet-stream");
+    res.Header("Content-type", "application/octet-stream");
   }
 
-  request(url).pipe(res);
-  // https.get(url, remote_response => remote_response.pipe(res));
+  // request(url).pipe(res);
+  https.get(url, remote_response => remote_response.pipe(res));
 });
 
 app.get("/downloads", async (req, res) => {
