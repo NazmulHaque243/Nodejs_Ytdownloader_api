@@ -82,8 +82,8 @@ app.get("/download", async (req, res) => {
     res.Header("Content-type", "application/octet-stream");
   }
 
-  // request(url).pipe(res);
-  https.get(url, remote_response => remote_response.pipe(res));
+  request(url).pipe(res);
+  // https.get(url, remote_response => remote_response.pipe(res));
 });
 
 app.get("/downloads", async (req, res) => {
