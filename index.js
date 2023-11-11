@@ -79,8 +79,8 @@ app.get("/download", async (req, res) => {
   } else if (mimeType.split("/")[0] === "audio") {
     res.header("Content-Disposition", `attachment; filename="${title}.mp3"`);
     // res.header('Content-Type', 'audio/mp3');
+    res.header("Content-type", "application/octet-stream");
     res.header("Content-Length", len);
-    res.Header("Content-type", "application/octet-stream");
   }
 
   // request(url).pipe(res);
