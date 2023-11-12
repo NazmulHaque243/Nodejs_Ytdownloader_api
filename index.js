@@ -16,11 +16,8 @@ const got = require('got')
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
+app.use(bodyParser.urlencoded({extended:true})
+  );
 
 function checkMimtype(mimtype) {
   return mimtype.mimeType.split("/")[0] === "audio";
@@ -89,12 +86,13 @@ app.get("/download", async (req, res) => {
 });
 
 app.get("/downloads", async (req, res) => {
-  const { title, videourl, audiourl } = req.query;
+  let { title, videourl, audiourl } = req.query;
+  title = encodeURI(title);
   res.setHeader("Content-Disposition", `attachment; filename=${title}.mp4`);
   // res.setHeader(`'content-length': ${},`)
   res.setHeader("Content-Type", "video/mp4");
-  const audio = request(audiourl);
-  const video = request(videourl);
+  const audio = got.stream(audiourl);
+  const video = got.stream(videourl);
   
 
   const ffmpegProcess = cp.spawn(
